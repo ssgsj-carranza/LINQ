@@ -26,7 +26,7 @@ namespace DatabaseFirstLINQ
             ProblemEight();
             ProblemNine();
             //ProblemTen();
-            //ProblemEleven();
+            ProblemEleven();
             //ProblemTwelve();
             //ProblemThirteen();
             //ProblemFourteen();
@@ -140,15 +140,20 @@ namespace DatabaseFirstLINQ
             // Write a LINQ query that retreives all of the products in the shopping cart of the user who has the email "oda@gmail.com" and returns the sum of all of the products prices.
             // HINT: End of query will be: .Select(sc => sc.Product.Price).Sum();
             // Then print the total of the shopping cart to the console.
-            var products = _context.ShoppingCarts.Include(p => p.Product).Where(u => u.User.Email == "oda@gmail.com").Select(sl => sl.Product.Price).Sum();
-            Console.WriteLine(products);
+            var prices = _context.ShoppingCarts.Include(p => p.Product).Where(u => u.User.Email == "oda@gmail.com").Select(sl => sl.Product.Price).Sum();
+            Console.WriteLine(prices);
         }
 
         private void ProblemTen()
         {
             // Write a LINQ query that retreives all of the products in the shopping cart of users who have the role of "Employee".
             // Then print the user's email as well as the product's name, price, and quantity to the console.
-
+            var employeeUsers = _context.UserRoles.Include(ur => ur.Role).Include(ur => ur.User).Where(ur => ur.Role.RoleName == "Employee");
+            var products = _context.ShoppingCarts.Include(p => p.Product).Include(p => p.User).Where(u => employeeUsers.Any(em => em.UserId == u.UserId)).ToList();
+            foreach (ShoppingCart shoppingCart in products)
+            {
+                Console.WriteLine($"Product Name: {shoppingCart.Product.Name} Price: {shoppingCart.Product.Price} Quantity: {shoppingCart.Quantity} Email:{shoppingCart.User.Email}");
+            }
         }
 
         // <><><><><><><><> CUD (Create, Update, Delete) Actions <><><><><><><><><>
