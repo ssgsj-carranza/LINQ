@@ -16,11 +16,11 @@ namespace DatabaseFirstLINQ
         }
         public void RunLINQQueries()
         {
-            //ProblemOne();
+            ProblemOne();
             ProblemTwo();
-            //ProblemThree();
-            //ProblemFour();
-            //ProblemFive();
+            ProblemThree();
+            ProblemFour();
+            ProblemFive();
             //ProblemSix();
             //ProblemSeven();
             //ProblemEight();
@@ -36,6 +36,7 @@ namespace DatabaseFirstLINQ
             //ProblemEighteen();
             //ProblemNineteen();
             //ProblemTwenty();
+            Console.ReadLine();
         }
 
         // <><><><><><><><> R Actions (Read) <><><><><><><><><>
@@ -45,7 +46,7 @@ namespace DatabaseFirstLINQ
             // HINT: .ToList().Count
             var users = _context.Users.ToList().Count;
             Console.WriteLine(users);
-            Console.ReadLine();
+            //Console.ReadLine();
             
             
             
@@ -61,7 +62,7 @@ namespace DatabaseFirstLINQ
                 Console.WriteLine(user.Email);
                 
             }
-            Console.ReadLine();
+            //Console.ReadLine();
         }
 
         private void ProblemThree()
@@ -72,7 +73,7 @@ namespace DatabaseFirstLINQ
             foreach (Product product in products)
             {
                 Console.WriteLine(product.Name + product.Price);
-                Console.ReadLine();
+                //Console.ReadLine();
             }
         }
 
@@ -84,7 +85,7 @@ namespace DatabaseFirstLINQ
             foreach (Product product in names)
             {
                 Console.WriteLine(product.Name);
-                Console.ReadLine();
+                //Console.ReadLine();
             }
         }
 
@@ -92,7 +93,11 @@ namespace DatabaseFirstLINQ
         {
             // Write a LINQ query that gets all of the users who registered BEFORE 2016
             // Then print each user's email and registration date to the console.
-
+            var regUser = _context.Users.Where(u => u.RegistrationDate.Value.Year < 2016);
+            foreach (User user in regUser)
+            {
+                Console.WriteLine($"Email: {user.Email} Registration Date: {user.RegistrationDate}");
+            }
         }
 
         private void ProblemSix()
