@@ -17,7 +17,7 @@ namespace DatabaseFirstLINQ
         public void RunLINQQueries()
         {
             //ProblemOne();
-            //ProblemTwo();
+            ProblemTwo();
             //ProblemThree();
             //ProblemFour();
             //ProblemFive();
@@ -45,6 +45,7 @@ namespace DatabaseFirstLINQ
             // HINT: .ToList().Count
             var users = _context.Users.ToList().Count;
             Console.WriteLine(users);
+            Console.ReadLine();
             
             
             
@@ -58,22 +59,33 @@ namespace DatabaseFirstLINQ
             foreach (User user in users)
             {
                 Console.WriteLine(user.Email);
+                
             }
-
+            Console.ReadLine();
         }
 
         private void ProblemThree()
         {
             // Write a LINQ query that gets each product where the products price is greater than $150.
             // Then print the name and price of each product from the above query to the console.
-
+            var products = _context.Products.Where(p => p.Price > 150);
+            foreach (Product product in products)
+            {
+                Console.WriteLine(product.Name + product.Price);
+                Console.ReadLine();
+            }
         }
 
         private void ProblemFour()
         {
             // Write a LINQ query that gets each product that contains an "s" in the products name.
             // Then print the name of each product from the above query to the console.
-
+            var names = _context.Products.Where(w => w.Name.Contains("s"));
+            foreach (Product product in names)
+            {
+                Console.WriteLine(product.Name);
+                Console.ReadLine();
+            }
         }
 
         private void ProblemFive()
