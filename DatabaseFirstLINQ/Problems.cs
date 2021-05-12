@@ -227,7 +227,10 @@ namespace DatabaseFirstLINQ
         private void ProblemSixteen()
         {
             // Update the price of the product you created to something different using LINQ.
-
+            var price = _context.Products.Where(p => p.Name == "Yugioh cards").SingleOrDefault();
+            price.Price = 10000;
+            _context.Products.Update(price);
+            _context.SaveChanges();
         }
 
         private void ProblemSeventeen()
@@ -251,7 +254,9 @@ namespace DatabaseFirstLINQ
         private void ProblemEighteen()
         {
             // Delete the role relationship from the user who has the email "oda@gmail.com" using LINQ.
-
+            var userRole = _context.UserRoles.Where(ur => ur.User.Email == "oda@gmail.com").SingleOrDefault();
+            _context.UserRoles.Remove(userRole);
+            _context.SaveChanges();
         }
 
         private void ProblemNineteen()
