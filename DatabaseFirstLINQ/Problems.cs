@@ -306,6 +306,16 @@ namespace DatabaseFirstLINQ
         {
             // Write a query that finds the total of every users shopping cart products using LINQ.
             // Display the total of each users shopping cart as well as the total of the toals to the console.
+            var customerUsers = _context.UserRoles.Include(ur => ur.Role).Include(ur => ur.User).Where(ur => ur.Role.RoleName != null);
+            var products = _context.ShoppingCarts.Include(p => p.Product).Include(p => p.User).Where(u => customerUsers.Any(em => em.UserId == u.UserId)).ToList();
+            decimal total = 0;
+            foreach (ShoppingCart shoppingCart in products)
+            {
+                var prices = _context.ShoppingCarts.Include(p => p.Product).Where(u => u.User.Email == shoppingCart.User.Email).Select(sl => sl.Product.Price).Sum();
+                Console.WriteLine($"Product Name: {shoppingCart.Product.Name} Price: {shoppingCart.Product.Price} Quantity: {shoppingCart.Quantity} Email:{shoppingCart.User.Email}");
+                total = prices + total;
+            }
+            Console.WriteLine(total);
         }
 
         // BIG ONE
