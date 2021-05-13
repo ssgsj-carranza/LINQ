@@ -286,6 +286,20 @@ namespace DatabaseFirstLINQ
             // Prompt the user to enter in an email and password through the console.
             // Take the email and password and check if the there is a person that matches that combination.
             // Print "Signed In!" to the console if they exists and the values match otherwise print "Invalid Email or Password.".
+            Console.WriteLine("Please enter your email: ");
+            var email = Console.ReadLine();
+            Console.WriteLine("Please enter your password: ");
+           var password = Console.ReadLine();
+           var checkUser = _context.Users.Where(u => u.Email == email && u.Password == password).SingleOrDefault();
+            if (checkUser == null)
+            {
+                Console.WriteLine("Please enter valid email or password");
+            }
+            else
+            {
+                Console.WriteLine("Welcome");
+            }
+            
         }
 
         private void BonusTwo()
